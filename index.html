@@ -1,1 +1,91 @@
-<!DOCTYPE html><html style="height: 100%;"><body style="height: 100%; margin: 0;"><iframe src="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_2Uxb5g/webchat?__version__=2&enableFileAttachment=false&cliAgent=true" frameborder="0" style="width: 100%; height: 100%; border: 0;"></iframe></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent</title>
+<style>
+  :root{
+    --ink:#08080b;
+    --edge:#1d1d24;
+    --red:#c8102e;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,16,46,.10), transparent 70%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,.012) 0 2px, transparent 2px 14px),
+      var(--ink);
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+
+  /* 사선 칼자국 */
+  .cut{
+    position:fixed;height:1px;width:160vmax;left:50%;top:50%;
+    background:linear-gradient(90deg,transparent,rgba(200,16,46,.5) 45%,rgba(255,255,255,.5) 50%,rgba(200,16,46,.5) 55%,transparent);
+    transform:translate(-50%,-50%) rotate(-24deg) scaleX(0);
+    animation:cut .5s .1s cubic-bezier(.8,0,.2,1) forwards;
+    pointer-events:none;
+  }
+  .cut.b{transform:translate(-50%,-50%) rotate(156deg) scaleX(0);animation-delay:.25s;opacity:.5}
+  @keyframes cut{to{transform:translate(-50%,-50%) rotate(var(--r,-24deg)) scaleX(1)}}
+  .cut.b{--r:156deg}
+
+  /* 프레임 */
+  .frame{
+    position:relative;width:100%;max-width:960px;height:100%;
+    opacity:0;animation:in .6s .55s ease-out forwards;
+  }
+  @keyframes in{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+
+  .frame::before{ /* 바깥 테두리 */
+    content:"";position:absolute;inset:-1px;
+    clip-path:polygon(0 18px,18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%);
+    background:linear-gradient(135deg,var(--red),var(--edge) 22%,var(--edge) 78%,var(--red));
+  }
+  .inner{
+    position:absolute;inset:0;
+    clip-path:polygon(0 18px,18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%);
+    background:#111116;
+    box-shadow:0 40px 100px rgba(0,0,0,.7);
+  }
+  iframe{
+    position:absolute;inset:1px;width:calc(100% - 2px);height:calc(100% - 2px);
+    border:0;display:block;background:#fff;
+    clip-path:polygon(0 17px,17px 0,100% 0,100% calc(100% - 17px),calc(100% - 17px) 100%,0 100%);
+  }
+
+  /* 모서리 수리검 */
+  .star{
+    position:absolute;width:26px;height:26px;z-index:2;
+    animation:spin 4s linear infinite;
+    filter:drop-shadow(0 0 6px rgba(200,16,46,.6));
+  }
+  .star.tl{top:-13px;left:-13px}
+  .star.br{bottom:-13px;right:-13px;animation-direction:reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  @media (max-width:600px){ body{padding:10px} }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important}
+    .frame{opacity:1}
+  }
+</style>
+</head>
+<body>
+  <div class="cut"></div>
+  <div class="cut b"></div>
+
+  <div class="frame">
+    <div class="inner"></div>
+    <svg class="star tl" viewBox="0 0 100 100" aria-hidden="true"><path fill="#c8102e" d="M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z"/><circle cx="50" cy="50" r="8" fill="#08080b"/></svg>
+    <svg class="star br" viewBox="0 0 100 100" aria-hidden="true"><path fill="#c8102e" d="M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z"/><circle cx="50" cy="50" r="8" fill="#08080b"/></svg>
+    <iframe
+      src="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_2Uxb5g/webchat?__version__=2&enableFileAttachment=false&cliAgent=true"
+      title="Agent chat"></iframe>
+  </div>
+</body>
+</html>
